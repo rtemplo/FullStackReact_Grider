@@ -4,16 +4,21 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "8.11.1", 
+    "node": "8.11.1",
     "npm": "5.8.0"
   },
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "rtemplo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
   }
 }
