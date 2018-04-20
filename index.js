@@ -39,6 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 
   // If Express can't match to a static asset first then it will forward it to index
   // React Router (if used in the app) will now direct any path matches
+  const path = require('path');
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
