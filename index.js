@@ -13,7 +13,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
-//allow express to be able to use cookies
+// allow express to be able to use cookies
+// cookie is created and passed to the client
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -21,12 +22,27 @@ app.use(
   })
 );
 
-//next two lines tell passport to make use of the cookies to handle authentication
+// next two lines tell passport to make use of the cookies to handle authentication
+// what is in the cookie is used to populate the session
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Attempts Node/Express routes first
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+
+// If in production, then the React build files will be available
+// If no routes are matched on the server side then the below will proceed.
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up React build static assets it can match up first
+  app.use(express.static('client/build'));
+
+  // If Express can't match to a static asset first then it will forward it to index
+  // React Router (if used in the app) will now direct any path matches
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
