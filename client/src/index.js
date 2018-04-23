@@ -9,6 +9,10 @@ import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import rootReducers from './reducers';
 
+//development only axios helpers
+import axios from 'axios';
+window.axios = axios;
+
 // const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;  
 
 // const store = createStore(
